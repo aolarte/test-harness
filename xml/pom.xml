@@ -3,21 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.andresolarte.harness</groupId>
-    <artifactId>parent</artifactId>
-    <packaging>pom</packaging>
     <version>1.0</version>
-    <name>Test Harness Parent Project</name>
+    <artifactId>xml</artifactId>
+    <packaging>jar</packaging>
 
-
-    <modules>
-        <module>amq</module>
-	<module>camel</module>
-	<module>ssl</module>
-        <module>xml</module>
-    </modules>
-
-
+    <name>XML Test Harness</name>
 
 </project>

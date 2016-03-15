@@ -1,0 +1,20 @@
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+    <xsl:strip-space elements="*"/>
+    <xsl:output indent="yes"/>
+
+    <!-- Remove element -->
+    <xsl:template match="comment"/>
+
+
+    <!-- Rename temp-link to link -->
+    <xsl:template match="temp-link">
+        <link>
+            <xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
+            <xsl:apply-templates/>
+        </link>
+    </xsl:template>
+
+
+</xsl:stylesheet>
