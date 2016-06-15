@@ -16,10 +16,12 @@
         <module>amq</module>
         <module>camel</module>
         <module>lang</module>
+        <module>eureka</module>
         <module>netty</module>
         <module>rxjava</module>
         <module>ssl</module>
         <module>xml</module>
+	<module>yaml</module>
     </modules>
 
 
