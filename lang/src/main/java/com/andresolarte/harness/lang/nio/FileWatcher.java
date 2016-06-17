@@ -19,7 +19,7 @@ public class FileWatcher {
         Path tempFilePath=tempFile.toPath();
         Path tempPath= tempFile.toPath().getParent();
         WatchService watcher=tempPath.getFileSystem().newWatchService();
-        tempPath.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+        tempPath.register(watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE);
         System.out.println("Watch has been registered");
 
         boolean done=false;
@@ -30,8 +30,16 @@ public class FileWatcher {
                     final Path changed = (Path) event.context();
                     Path changedFull=tempPath.resolve(changed);
                     if (tempFilePath.equals(changedFull)) {
-                        System.out.println("My file has been created");
-                       // done=true;
+                        if (event.kind()==StandardWatchEventKinds.ENTRY_CREATE) {
+                            System.out.println("My file has been created");
+                        }
+
+                        if (event.kind()==StandardWatchEventKinds.ENTRY_DELETE) {
+                            System.out.println("My file has been deleted OR moved");
+                        }
+
+
+                        // done=true;
                     }
                 }
                 // reset the key
