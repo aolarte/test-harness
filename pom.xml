@@ -21,7 +21,8 @@
         <module>rxjava</module>
         <module>ssl</module>
         <module>xml</module>
-	<module>yaml</module>
+	    <module>yaml</module>
+        <module>zookeeper</module>
     </modules>
 
 
