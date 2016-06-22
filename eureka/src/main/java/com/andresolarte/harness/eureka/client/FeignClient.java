@@ -22,7 +22,7 @@ public class FeignClient {
         Decoder decoder = new JacksonDecoder();
         return Feign.builder()
                 .decoder(decoder)
-                //.errorDecoder(new GitHubErrorDecoder(decoder))
+                //.errorDecoder(new ErrorDecoder(decoder))
                 .contract(new JAXRSContract())
                 .logger(new Logger.ErrorLogger())
                 .logLevel(Logger.Level.BASIC)
