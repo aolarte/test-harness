@@ -12,11 +12,13 @@
 
 
     <modules>
+	<module>axon</module>
         <module>akka</module>
         <module>amq</module>
         <module>camel</module>
         <module>lang</module>
         <module>eureka</module>
+        <module>eureka-server</module>
         <module>netty</module>
         <module>rxjava</module>
         <module>ssl</module>
