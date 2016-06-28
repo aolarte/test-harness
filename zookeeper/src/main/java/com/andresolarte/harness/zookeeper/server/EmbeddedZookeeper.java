@@ -1,14 +1,14 @@
 package com.andresolarte.harness.zookeeper.server;
 
-import com.andresolarte.harness.zookeeper.TestUtils;
 import org.apache.zookeeper.server.NIOServerCnxnFactory;
 import org.apache.zookeeper.server.ServerCnxnFactory;
 import org.apache.zookeeper.server.ZooKeeperServer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class EmbeddedZookeeper {
     private int port = -1;
@@ -18,9 +18,6 @@ public class EmbeddedZookeeper {
     private File snapshotDir;
     private File logDir;
 
-    public EmbeddedZookeeper() {
-        this(-1);
-    }
 
     public EmbeddedZookeeper(int port) {
         this(port, 500);
@@ -31,20 +28,31 @@ public class EmbeddedZookeeper {
         this.tickTime = tickTime;
     }
 
-    private int resolvePort(int port) {
-        if (port == -1) {
-            return TestUtils.getAvailablePort();
+    public static void main(String... args) throws IOException, InterruptedException {
+        EmbeddedZookeeper embeddedZookeeper = new EmbeddedZookeeper(9981);
+        embeddedZookeeper.startup();
+    }
+
+    public static File constructTempDir(String dirPrefix) {
+
+        try {
+            Path tempDir = Files.createTempDirectory(dirPrefix);
+            return tempDir.toFile();
+        } catch (IOException e) {
+            throw new RuntimeException("could not create temp directory.", e);
         }
+    }
+
+    private int resolvePort(int port) {
+
         return port;
     }
 
-    public void startup() throws IOException{
-        if (this.port == -1) {
-            this.port = TestUtils.getAvailablePort();
-        }
+    public void startup() throws IOException {
+
         this.factory = NIOServerCnxnFactory.createFactory(new InetSocketAddress("localhost", port), 1024);
-        this.snapshotDir = TestUtils.constructTempDir("embeeded-zk/snapshot");
-        this.logDir = TestUtils.constructTempDir("embeeded-zk/log");
+        this.snapshotDir = constructTempDir("embeeded-zk_snapshot");
+        this.logDir = constructTempDir("embeeded-zk_log");
 
         try {
             factory.startup(new ZooKeeperServer(snapshotDir, logDir, tickTime));
@@ -53,39 +61,29 @@ public class EmbeddedZookeeper {
         }
     }
 
-
     public void shutdown() {
         factory.shutdown();
-        try {
-            TestUtils.deleteFile(snapshotDir);
-        } catch (FileNotFoundException e) {
-            // ignore
-        }
-        try {
-            TestUtils.deleteFile(logDir);
-        } catch (FileNotFoundException e) {
-            // ignore
-        }
+
     }
 
     public String getConnection() {
         return "localhost:" + port;
     }
 
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public void setTickTime(int tickTime) {
-        this.tickTime = tickTime;
-    }
-
     public int getPort() {
         return port;
     }
 
+    public void setPort(int port) {
+        this.port = port;
+    }
+
     public int getTickTime() {
         return tickTime;
+    }
+
+    public void setTickTime(int tickTime) {
+        this.tickTime = tickTime;
     }
 
     @Override

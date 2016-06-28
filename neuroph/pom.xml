@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.andresolarte.harness</groupId>
+    <version>1.0</version>
+    <artifactId>neuroph</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Neuroph Test Harness</name>
+
+    <properties>
+        <neuroph.version>2.9</neuroph.version>
+
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>org.neuroph</id>
+            <name>neuroph-core</name>
+            <url>http://neuroph.sourceforge.net/maven2</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.neuroph</groupId>
+            <artifactId>neuroph-core</artifactId>
+            <version>${neuroph.version}</version>
+        </dependency>
+
+
+    </dependencies>
+
+</project>
