@@ -16,6 +16,7 @@
         <module>akka</module>
         <module>amq</module>
         <module>camel</module>
+        <module>dropwizard</module>
         <module>guava</module>
         <module>lang</module>
         <module>eureka</module>
@@ -24,6 +25,7 @@
 	    <module>neuroph</module>
         <module>rxjava</module>
         <module>ssl</module>
+        <module>websockets-springboot</module>
         <module>xml</module>
 	    <module>yaml</module>
         <module>zookeeper</module>
