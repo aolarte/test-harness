@@ -1,0 +1,29 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+	      http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>Test Servlet 2.4 Web Application</display-name>
+
+    <filter>
+        <filter-name>LogFilter</filter-name>
+        <filter-class>com.andresolarte.harness.webapp.filters.LogFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>LogFilter</filter-name>
+        <url-pattern>/user.action</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>com.andresolarte.harness.webapp.servlets.UserServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/user.action</url-pattern>
+    </servlet-mapping>
+
+</web-app>

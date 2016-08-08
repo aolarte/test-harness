@@ -25,8 +25,6 @@ public class CamelTest implements Serializable {
 
         main = new Main();
 
-        // enable hangup support so you can press ctrl + c to terminate the JVM
-        main.enableHangupSupport();
         // bind MyBean into the registry
         main.bind("foo", new MyBean());
         main.bind("foo2", new MyBean2());

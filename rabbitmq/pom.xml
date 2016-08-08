@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.andresolarte.harness</groupId>
     <version>1.0</version>
-    <artifactId>amq</artifactId>
+    <artifactId>rabbitmq</artifactId>
     <packaging>jar</packaging>
 
-    <name>ActiveMQ Test Harness</name>
+    <name>RabbitMQ Test Harness</name>
 
     <properties>
-        <amq.version>5.12.1</amq.version>
+        <rabbitmq.version>3.6.4</rabbitmq.version>
         <sl4j.version>1.7.21</sl4j.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -21,20 +21,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-client</artifactId>
-            <version>${amq.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-broker</artifactId>
-            <version>${amq.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${sl4j.version}</version>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>${rabbitmq.version}</version>
         </dependency>
 
 
