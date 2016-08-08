@@ -57,7 +57,7 @@ public class CamelLoadBalanceTest implements Serializable {
     }
 
     public interface Service {
-        void submit(Event e);
+        String submit(Event e);
     }
 
     public static class Event {
@@ -69,14 +69,16 @@ public class CamelLoadBalanceTest implements Serializable {
     }
 
     public static class MyBean1 {
-        public void onMessage(Event event) {
+        public String onMessage(Event event) {
             System.out.println("My Bean 1: event: " + event.type );
+            return "Success";
         }
     }
 
     public static class MyBean2 {
-        public void onMessage(Event event) {
+        public String onMessage(Event event) {
             System.out.println("My Bean 2: event: " + event.type);
+            return "OK";
         }
     }
 
@@ -88,7 +90,9 @@ public class CamelLoadBalanceTest implements Serializable {
             try {
                 Service service = new ProxyBuilder(context).endpoint("direct:start").build(Service.class);
                 for (int i=0;i<20;i++) {
-                    service.submit(new Event("#"+i));
+                    Event e=new Event("#"+i);
+                    String ret=service.submit(e);
+                    System.out.println("Got: " + ret + " for " + e.type);
                 }
 
                 Thread.sleep(500);
