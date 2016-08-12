@@ -9,13 +9,13 @@ import java.io.IOException;
 public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Get");
+        System.out.println("Get!");
         resp.getWriter().append("Get!");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Post");
+        System.out.println("Post!");
         resp.getWriter().append("Post!");
     }
 }

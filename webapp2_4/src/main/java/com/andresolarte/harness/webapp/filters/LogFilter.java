@@ -54,12 +54,6 @@ public class LogFilter implements Filter{
         sb.append("QueryString: ");
         sb.append(servletRequest.getQueryString());
         sb.append("\n");
-
-        sb.append("Body: ");
-        sb.append(getBody(servletRequest));
-        sb.append("\n");
-
-
         return sb.toString();
     }
 
@@ -68,12 +62,7 @@ public class LogFilter implements Filter{
 
     }
 
-    private String getBody(HttpServletRequest request) throws IOException {
-        String body = request.getReader().lines()
-                .reduce("", (accumulator, actual) -> accumulator + actual);
-        return body;
 
-    }
 
 
 }
