@@ -16,6 +16,7 @@
         <module>akka</module>
         <module>amq</module>
         <module>camel</module>
+        <module>cassandra</module>
         <module>dropwizard</module>
         <module>guava</module>
         <module>lang</module>
