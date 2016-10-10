@@ -19,6 +19,7 @@
         <module>cassandra</module>
         <module>dropwizard</module>
         <module>guava</module>
+        <module>hystrix</module>
         <module>lang</module>
         <module>eureka</module>
         <module>eureka-server</module>
