@@ -17,6 +17,7 @@
         <module>amq</module>
         <module>camel</module>
         <module>cassandra</module>
+        <module>cglib</module>
         <module>dropwizard</module>
         <module>guava</module>
         <module>hystrix</module>
