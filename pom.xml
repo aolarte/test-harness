@@ -21,6 +21,7 @@
         <module>cglib</module>
         <module>dropwizard</module>
         <module>guava</module>
+	<module>guice</module>
         <module>hystrix</module>
         <module>lang</module>
         <module>eureka</module>
