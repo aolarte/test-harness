@@ -31,6 +31,7 @@
         <module>rabbitmq</module>
         <module>rxjava</module>
         <module>ssl</module>
+	<module>spring4</module>
         <module>webapp2_4</module>
         <module>websockets-springboot</module>
         <module>xml</module>
