@@ -20,9 +20,11 @@
         <module>cdi</module>
         <module>cglib</module>
         <module>dropwizard</module>
+	<module>dropwizard-metrics</module>
         <module>guava</module>
-	<module>guice</module>
+        <module>guice</module>
         <module>hystrix</module>
+        <module>kotlin</module>
         <module>lang</module>
         <module>eureka</module>
         <module>eureka-server</module>
@@ -31,7 +33,8 @@
         <module>rabbitmq</module>
         <module>rxjava</module>
         <module>ssl</module>
-	<module>spring4</module>
+        <module>spring4</module>
+        <module>springboot</module>
         <module>webapp2_4</module>
         <module>websockets-springboot</module>
         <module>xml</module>

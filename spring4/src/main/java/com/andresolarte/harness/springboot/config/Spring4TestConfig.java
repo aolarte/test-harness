@@ -9,4 +9,5 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @ComponentScan("com.andresolarte.harness.spring4")
 @EnableAspectJAutoProxy
 public class Spring4TestConfig {
+
 }
