@@ -19,6 +19,9 @@ public class CassandraTest {
             session.execute("INSERT INTO users (lastname, age, city, email, firstname) " +
                     "VALUES ('Jones', 35, 'Austin', 'bob@example.com', 'Bob')");
 
+            session.execute("INSERT INTO users (lastname, age, city, email, firstname, state) " +
+                    "VALUES ('Smith', 35, 'Chicago', 'mike@example.com', 'Mike', 'IL')");
+
             ResultSet results = session.execute("SELECT * FROM users WHERE lastname='Jones'");
             for (Row row : results) {
                 System.out.format("%s %d\n", row.getString("firstname"), row.getInt("age"));

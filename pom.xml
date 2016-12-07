@@ -12,24 +12,26 @@
 
 
     <modules>
-	<module>axon</module>
         <module>akka</module>
         <module>amq</module>
+        <module>apache-storm</module>
+        <module>axon</module>
         <module>camel</module>
         <module>cassandra</module>
         <module>cdi</module>
         <module>cglib</module>
         <module>dropwizard</module>
-	<module>dropwizard-metrics</module>
+        <module>dropwizard-metrics</module>
         <module>guava</module>
         <module>guice</module>
         <module>hystrix</module>
+        <module>joptimizer</module>
         <module>kotlin</module>
         <module>lang</module>
         <module>eureka</module>
         <module>eureka-server</module>
         <module>netty</module>
-	    <module>neuroph</module>
+        <module>neuroph</module>
         <module>rabbitmq</module>
         <module>rxjava</module>
         <module>ssl</module>
@@ -38,7 +40,7 @@
         <module>webapp2_4</module>
         <module>websockets-springboot</module>
         <module>xml</module>
-	    <module>yaml</module>
+        <module>yaml</module>
         <module>zookeeper</module>
     </modules>
 
