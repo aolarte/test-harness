@@ -22,6 +22,7 @@
         <module>cglib</module>
         <module>dropwizard</module>
         <module>dropwizard-metrics</module>
+        <module>groovy</module>
         <module>guava</module>
         <module>guice</module>
         <module>hystrix</module>
