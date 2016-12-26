@@ -24,7 +24,7 @@ public class ZooKeeperClient {
 
 
         ZooKeeperClient client = new ZooKeeperClient();
-        client.connect("127.0.0.1:9981");
+        client.connect("127.0.0.1:2181");
 
 
         String path = "/node";

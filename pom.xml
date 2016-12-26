@@ -27,6 +27,7 @@
         <module>guice</module>
         <module>hystrix</module>
         <module>joptimizer</module>
+        <module>kafka</module>
         <module>kotlin</module>
         <module>lang</module>
         <module>eureka</module>
