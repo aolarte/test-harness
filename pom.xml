@@ -38,6 +38,7 @@
         <module>ssl</module>
         <module>spring4</module>
         <module>springboot</module>
+        <module>springboot-cloud-stream</module>
         <module>webapp2_4</module>
         <module>websockets-springboot</module>
         <module>xml</module>
