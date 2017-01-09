@@ -25,6 +25,7 @@
         <module>groovy</module>
         <module>guava</module>
         <module>guice</module>
+        <module>hazelcast</module>
         <module>hystrix</module>
         <module>joptimizer</module>
         <module>kafka</module>
