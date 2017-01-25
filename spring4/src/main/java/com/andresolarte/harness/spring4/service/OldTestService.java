@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class TestService implements ITestService {
+public class OldTestService implements ITestService {
 
     @HTMLPrettify
     public String buildMessage() {
-        return "Hello World!";
+        return "**Deprecated :( ** ";
     }
 }

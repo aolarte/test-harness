@@ -4,6 +4,8 @@ import com.andresolarte.harness.camel.pojos.Event;
 import com.andresolarte.harness.camel.pojos.Priority;
 import com.andresolarte.harness.camel.pojos.Result;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.ProxyBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.main.Main;
@@ -22,13 +24,14 @@ public class CamelRouterTest implements Serializable {
     private Main main;
 
     private ControlBean controlBean = new ControlBean();
+    private static MyBean2 myBean2 = new MyBean2();
 
     public void run() {
         main = new Main();
 
         // bind beans into the registry
         main.bind("bean1", new MyBean1());
-        main.bind("bean2", new MyBean2());
+       // main.bind("bean2", new MyBean2());
         main.bind("controlBean", controlBean);
 
         // add routes
@@ -53,13 +56,15 @@ public class CamelRouterTest implements Serializable {
                     .when(method("controlBean","isToggle"))
                         .to("direct:route1")
                     .otherwise()
+                        .delay(method("controlBean","delay"))
                         .to("direct:route2");
 
             from("direct:route1")
                     .to("bean:bean1?method=submit"); // Method prevents "Ambiguous method invocations possible" errors
 
             from("direct:route2")
-                    .to("bean:bean2");
+                    .bean(myBean2);
+
 
 
         }
@@ -96,6 +101,10 @@ public class CamelRouterTest implements Serializable {
 
         public void setToggle(boolean toggle) {
             this.toggle = toggle;
+        }
+
+        public int delay() {
+            return 1000;
         }
     }
 

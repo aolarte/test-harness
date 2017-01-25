@@ -4,6 +4,7 @@ import com.andresolarte.harness.cdi.services.TestService;
 import com.andresolarte.harness.cdi.services.TestService2;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 @ApplicationScoped
@@ -12,13 +13,12 @@ public class App {
     private TestService testService;
 
     @Inject
-    private TestService2 testService2;
+    private Instance<TestService2> testService2Instance;
 
 
     public void run() {
         System.out.println(testService.buildMessage());
 
-        testService.executeSubService();
-        testService2.executeSubService();
+        System.out.println(testService2Instance.get().buildMessage());
     }
 }
