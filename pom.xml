@@ -33,6 +33,7 @@
         <module>lang</module>
         <module>eureka</module>
         <module>eureka-server</module>
+        <module>neo4j</module>
         <module>netty</module>
         <module>neuroph</module>
         <module>rabbitmq</module>
