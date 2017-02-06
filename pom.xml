@@ -33,6 +33,7 @@
         <module>lang</module>
         <module>eureka</module>
         <module>eureka-server</module>
+        <module>mongodb</module>
         <module>neo4j</module>
         <module>netty</module>
         <module>neuroph</module>
@@ -40,6 +41,7 @@
         <module>rxjava</module>
         <module>ssl</module>
         <module>spring4</module>
+        <module>spring-data-mongodb</module>
         <module>spring-integration</module>
         <module>springboot</module>
         <module>springboot-cloud-stream</module>

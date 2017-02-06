@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.andresolarte.harness</groupId>
+    <version>1.0</version>
+    <artifactId>mongodb</artifactId>
+    <packaging>jar</packaging>
+
+    <name>MongoDB Test Harness</name>
+
+    <properties>
+        <mongodb.version>3.4.2</mongodb.version>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-async</artifactId>
+            <version>${mongodb.version}</version>
+        </dependency>
+
+
+
+    </dependencies>
+
+
+</project>
