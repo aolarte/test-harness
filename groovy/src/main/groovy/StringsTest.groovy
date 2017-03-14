@@ -1,5 +1,5 @@
 class StringsTest {
-    static final String MY_ID = "ID43";
+    static final String MY_ID = "ID43"
     static void main(String... args) {
         println '''Multi 
 line'''
@@ -13,5 +13,7 @@ line'''
         println s.drop(3) //Test String
         println s.take(7) //My Test
 
+        int  x =999
+        println sprintf('%02d', x)
     }
 }

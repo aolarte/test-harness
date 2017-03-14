@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 public class SortingTest {
 
     public static void main(String... args) {
-        int[] toSort = new int[]{4, 2, 6, 3, 1, 5,10,11,0};
-        System.out.println("Original: " + formatArray(toSort));
+        int[] toSort = createArray();
+        System.out.println("Original: " + SortingUtils.formatArray(toSort));
         runSorting("SelectionSort", new SelectionSort());
         runSorting("InsertionSort", new InsertionSort());
         runSorting("QuickSort", new QuickSort());
@@ -16,14 +16,14 @@ public class SortingTest {
 
     private static void runSorting(String name, SortAlgorithm sortAlgorithm) {
 
-        int[] toSort = new int[]{4, 2, 6, 3, 1, 5,10,11,0};
-        String result = formatArray(sortAlgorithm.sort(toSort));
+        int[] toSort = createArray();
+        String result = SortingUtils.formatArray(sortAlgorithm.sort(toSort));
         System.out.println(name + "Result: " + result);
     }
 
-    private static String formatArray(int[] arr) {
-        return Arrays.stream(arr).boxed()
-                .map(String::valueOf)
-                .collect(Collectors.joining(", "));
+    private static int[] createArray() {
+        return new int[]{1, 12, 5, 26, 7, 14, 3, 7, 2};
     }
+
+
 }

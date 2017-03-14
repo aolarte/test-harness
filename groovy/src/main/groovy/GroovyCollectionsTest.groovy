@@ -5,6 +5,10 @@ class GroovyCollectionsTest {
         println(list)
 
         list = ["a","b","c"]
+        println("Sublist")
+        println(list[0..0])
+        List<String> list2 = []
+        println(list2[0])
         println(list)
         list = list.drop(1)
         println(list) // "b","c"
@@ -32,5 +36,8 @@ class GroovyCollectionsTest {
         }
         println(flatList)
 
+        Set<Long> longSet = [10, 20, 30]
+        long[] longs = longSet.toArray()
+        println(longs)
     }
 }

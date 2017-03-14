@@ -19,6 +19,7 @@
         <module>camel</module>
         <module>cassandra</module>
         <module>cdi</module>
+        <module>cdi2_0</module>
         <module>cglib</module>
         <module>dropwizard</module>
         <module>dropwizard-metrics</module>
@@ -45,6 +46,7 @@
         <module>spring-integration</module>
         <module>springboot</module>
         <module>springboot-cloud-stream</module>
+        <module>springboot-jwt</module>
         <module>webapp2_4</module>
         <module>websockets-springboot</module>
         <module>xml</module>
