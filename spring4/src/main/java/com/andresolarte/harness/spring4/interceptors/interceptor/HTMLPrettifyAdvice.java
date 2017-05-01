@@ -1,4 +1,4 @@
-package com.andresolarte.harness.spring4.interceptor;
+package com.andresolarte.harness.spring4.interceptors.interceptor;
 
 
 import org.aspectj.lang.ProceedingJoinPoint;
