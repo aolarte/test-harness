@@ -7,9 +7,13 @@ import org.springframework.stereotype.Component;
 public class PropertiesApp {
 
     @Value("${key1}")
-    private String value;
+    private String value1;
+
+    @Value("${key2}")
+    private String value2;
 
     public void run() {
-        System.out.println("Value: " + value);
+        System.out.println("Value1: " + value1);
+        System.out.println("Value2: " + value2);
     }
 }
