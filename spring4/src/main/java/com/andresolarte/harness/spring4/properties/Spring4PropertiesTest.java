@@ -7,6 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 import javax.annotation.PostConstruct;
@@ -14,7 +15,10 @@ import javax.annotation.PostConstruct;
 
 @Configuration
 @ComponentScan(basePackageClasses = Spring4PropertiesTest.class)
-@PropertySource("/props/services.properties")
+//@PropertySource(value = {"/props/services.properties", //Older syntax
+//        "/props/site-services.properties"})
+@PropertySources({@PropertySource("/props/services.properties"), //Newer preferred syntax
+        @PropertySource("/props/site-services.properties")})
 public class Spring4PropertiesTest {
 
     @Autowired
