@@ -14,4 +14,17 @@ public class HTMLPrettifyAdvice {
     public Object prettify(ProceedingJoinPoint pjp, HTMLPrettify htmlPrettify) throws Throwable {
         return "<p>" + pjp.proceed() + "</p>";
     }
+
+    @Around("@within(com.andresolarte.harness.spring4.interceptors.interceptor.HTMLPrettify)" +
+            "|| @annotation(com.andresolarte.harness.spring4.interceptors.interceptor.HTMLPrettify)")
+    public Object prettify2(ProceedingJoinPoint pjp) throws Throwable {
+        return "<p>" + pjp.proceed() + "</p>";
+    }
+
+    @Around("@within(htmlPrettify)" +
+            "|| @annotation(htmlPrettify)")
+    public Object prettify3(ProceedingJoinPoint pjp, HTMLPrettify htmlPrettify) throws Throwable {
+        return "<p>" + pjp.proceed() + "</p>";
+    }
+
 }

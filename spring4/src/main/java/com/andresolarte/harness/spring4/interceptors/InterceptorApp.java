@@ -13,6 +13,7 @@ public class InterceptorApp {
     private InterceptedTestService testService;
 
     public void run() throws Exception {
-        System.out.println(testService.buildMessage());
+        System.out.println(testService.buildMessage1());
+        System.out.println(testService.buildMessage2());
     }
 }
