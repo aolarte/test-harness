@@ -31,7 +31,7 @@ public class LogBeanPostProcessor implements BeanPostProcessor{
             //Has our annotation, let's enhance the object
             Class<?> proxyClass = createProxyClass(o.getClass());
             Factory proxy = (Factory) OBJENESIS.newInstance(proxyClass);
-            proxy.setCallbacks(new Callback[]{new TestInvocationHandler(o), NoOp.INSTANCE});
+            proxy.setCallbacks(new Callback[]{new TestInvocationHandler(o), NoOp.INSTANCE}); //I think NoOp.INSTANCE is not needed
             return proxy;
         } else {
             //Doesn't have out annotation, nothing to do
@@ -45,17 +45,15 @@ public class LogBeanPostProcessor implements BeanPostProcessor{
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(baseClass);
         enhancer.setUseFactory(true);
-        enhancer.setCallbackType(net.sf.cglib.proxy.InvocationHandler.class);
+        enhancer.setCallbackType(InvocationHandler.class);
         return enhancer.createClass();
     }
 
     static class TestInvocationHandler implements InvocationHandler {
         private final Object target;
-
         public TestInvocationHandler(Object target) {
             this.target = target;
         }
-
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             System.out.println("Entering method: " + method.getName());
