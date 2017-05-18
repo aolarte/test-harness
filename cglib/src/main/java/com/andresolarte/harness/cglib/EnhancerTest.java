@@ -1,5 +1,7 @@
 package com.andresolarte.harness.cglib;
 
+import net.sf.cglib.core.DefaultNamingPolicy;
+import net.sf.cglib.core.Predicate;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.FixedValue;
 import net.sf.cglib.proxy.InvocationHandler;
@@ -13,6 +15,7 @@ public class EnhancerTest implements Supplier<String> {
     public static void main(String... args) {
         printInfo(testFixedValue(),"Fixed");
         printInfo(testInvocationHandler(),"Handler");
+        printInfo(testInvocationHandlerWithNamingPolicy(), "Handler with Naming Policy");
         printInfo(testInvocationInterceptor(),"Interceptor");
     }
 
@@ -37,6 +40,30 @@ public class EnhancerTest implements Supplier<String> {
         return (Supplier) enhancer.create();
     }
 
+    public static Supplier<String> testInvocationHandlerWithNamingPolicy() {
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(EnhancerTest.class);
+        enhancer.setUseCache(false);
+        enhancer.setNamingPolicy(new DefaultNamingPolicy() {
+            public String getClassName(String prefix,
+                                       String source, Object key, Predicate names) {
+                return "proxy." +
+                        super.getClassName(prefix, source, key, names);
+            }
+        });
+        enhancer.setCallback((InvocationHandler) (proxy, method, args) -> {
+            if(method.getDeclaringClass() != Object.class
+                    && method.getReturnType() == String.class) {
+                return "Test implementation!";
+            } else {
+                throw new RuntimeException("Do not know what to do.");
+            }
+        });
+        return (Supplier) enhancer.create();
+    }
+
+
+
     public static Supplier<String> testInvocationInterceptor() {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(EnhancerTest.class);
@@ -49,7 +76,6 @@ public class EnhancerTest implements Supplier<String> {
             }
         });
         return (Supplier) enhancer.create();
-
     }
 
     public static void printInfo(Supplier<String> proxy, String label) {
@@ -62,6 +88,13 @@ public class EnhancerTest implements Supplier<String> {
 
         try {
             System.out.println(proxy.toString());
+        } catch (Exception e) {
+            System.out.println("Got Exception during toString(): " + e.getMessage());
+        }
+
+
+        try {
+            System.out.println("Class: " + proxy.getClass());
         } catch (Exception e) {
             System.out.println("Got Exception during toString(): " + e.getMessage());
         }

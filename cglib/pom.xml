@@ -11,6 +11,9 @@
     <name>CGLib Test Harness</name>
 
     <properties>
+        <cglib.version>3.2.4</cglib.version>
+        <objenesis.version>2.5.1</objenesis.version>
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -19,8 +22,15 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>3.2.4</version>
+            <version>${cglib.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <version>${objenesis.version}</version>
+        </dependency>
+
 
 
     </dependencies>
