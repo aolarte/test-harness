@@ -20,7 +20,13 @@ public class ThreadLocalTest {
         }
     };
 
+    private static final ThreadLocal<SimpleDateFormat> dateFormatHolder =
+            ThreadLocal.withInitial(() -> new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a"));
+
     public static void main(String... args) {
+
+        dateFormatHolder.get().format(new Date());
+
         IntStream.range(0, 20).forEach(i -> new Thread(() -> {
             SimpleDateFormat sdf = dateFormat.get();
             System.out.println("Result: " + sdf.format(new Date()) +
@@ -28,5 +34,7 @@ public class ThreadLocalTest {
 
         }).start());
     }
+
+
 
 }
