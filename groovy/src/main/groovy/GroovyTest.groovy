@@ -2,6 +2,10 @@
  * Created by aolarte on 12/19/2016.
  */
 class GroovyTest {
+    static class MyModel {
+        int i
+    }
+
     static void main(String... args) {
         List list
         println list?.size()>0
@@ -22,6 +26,9 @@ class GroovyTest {
             return it.toUpperCase()
         }
         println(upperCaseItems)
+
+        MyModel model = new MyModel(i:10)
+        println("Model: " + (model?.i>5))
 
     }
 }

@@ -15,5 +15,8 @@ line'''
 
         int  x =999
         println sprintf('%02d', x)
+
+        println String.format('Y%s X%sY', '1', '2')
+        println String.format('Y%s X%sY', ['1', '2'] as Object[])
     }
 }
