@@ -5,31 +5,40 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.andresolarte.harness</groupId>
     <version>1.0</version>
-    <artifactId>groovy</artifactId>
+    <artifactId>spock</artifactId>
     <packaging>jar</packaging>
 
-    <name>Groovy Language Test Harness</name>
+    <name>Spock Test Harness</name>
 
     <properties>
-        <groovy.version>2.4.7</groovy.version>
-        <gmavenplus.version>1.5</gmavenplus.version>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>${groovy.version}</version>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>1.1-groovy-2.4</version>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>3.2.5</version>
+        </dependency>
+
+
+    </dependencies>
     <build>
         <plugins>
+
             <!-- For this to integrate properly in IntelliJ, install "GMavenPlus IntelliJ Plugin" -->
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>${gmavenplus.version}</version>
+                <version>1.5</version>
                 <executions>
                     <execution>
                         <goals>

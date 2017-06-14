@@ -28,8 +28,10 @@
         <module>guice</module>
         <module>hazelcast</module>
         <module>hystrix</module>
+        <module>jackson</module>
         <module>jdbc</module>
         <module>joptimizer</module>
+        <module>junit</module>
         <module>kafka</module>
         <module>kotlin</module>
         <module>lang</module>
@@ -42,10 +44,12 @@
         <module>rabbitmq</module>
         <module>rxjava</module>
         <module>ssl</module>
+        <module>spock</module>
         <module>spring4</module>
         <module>spring-batch</module>
         <module>spring-data-mongodb</module>
         <module>spring-integration</module>
+        <module>spring-jdbc</module>
         <module>springboot</module>
         <module>springboot-cloud-stream</module>
         <module>springboot-jwt</module>
