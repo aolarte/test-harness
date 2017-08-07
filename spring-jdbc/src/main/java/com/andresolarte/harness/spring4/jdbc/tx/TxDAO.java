@@ -11,6 +11,7 @@ public class TxDAO {
 
     @Autowired JdbcTemplate jdbcTemplate;
 
+    @Transactional(propagation = Propagation.NEVER)
     public int countRecords() {
         return jdbcTemplate.queryForObject("SELECT count(*) FROM TEST;", Integer.class);
     }

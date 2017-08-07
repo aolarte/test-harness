@@ -28,6 +28,7 @@
         <module>guice</module>
         <module>hazelcast</module>
         <module>hystrix</module>
+        <module>jackrabbit</module>
         <module>jackson</module>
         <module>jdbc</module>
         <module>joptimizer</module>
@@ -38,6 +39,7 @@
         <module>eureka</module>
         <module>eureka-server</module>
         <module>mongodb</module>
+        <module>narayana</module>
         <module>neo4j</module>
         <module>netty</module>
         <module>neuroph</module>
@@ -53,6 +55,7 @@
         <module>springboot</module>
         <module>springboot-cloud-stream</module>
         <module>springboot-jwt</module>
+        <module>springboot-narayana</module>
         <module>webapp2_4</module>
         <module>websockets-springboot</module>
         <module>xml</module>

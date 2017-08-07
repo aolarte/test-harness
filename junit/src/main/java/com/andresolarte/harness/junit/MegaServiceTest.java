@@ -1,4 +1,4 @@
-package com.andresolarte.harness.jackson;
+package com.andresolarte.harness.junit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

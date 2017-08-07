@@ -11,6 +11,7 @@ public class SortingTest {
         runSorting("SelectionSort", new SelectionSort());
         runSorting("InsertionSort", new InsertionSort());
         runSorting("QuickSort", new QuickSort());
+        runSorting("QuickSort2", new QuickSort2());
 
     }
 

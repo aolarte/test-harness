@@ -1,4 +1,4 @@
-package com.andresolarte.harness.jackson;
+package com.andresolarte.harness.junit;
 
 public class Person {
     private String firstName;
