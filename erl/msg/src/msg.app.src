@@ -1,0 +1,16 @@
+{application, msg,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, { msg_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, [msg_server]},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
