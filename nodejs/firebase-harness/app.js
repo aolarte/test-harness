@@ -2,11 +2,11 @@ var firebase = require('firebase')
 require('firebase/firestore')
 
 var config = {
-  apiKey: 'AIzaSyBbqAdpvGWMBK7fmC1el30ZNvlxQdxiBsE',
-  authDomain: 'andresolarte-fb.firebaseapp.com',
-  databaseURL: 'https://andresolarte-fb.firebaseio.com',
-  storageBucket: 'andresolarte-fb.appspot.com',
-  projectId: 'andresolarte-fb'
+  apiKey: 'XXXX',
+  authDomain: 'XXXX',
+  databaseURL: 'XXXX',
+  storageBucket: 'XXXX',
+  projectId: 'XXXX'
 }
 firebase.initializeApp(config)
 
