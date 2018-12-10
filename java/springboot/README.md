@@ -1,6 +1,9 @@
 
+# SpringBoot app
 
-# Docker
+Simple SpringBoot app that can be containerized.
+
+# Containerization
 
 ## Build image
 
