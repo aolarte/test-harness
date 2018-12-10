@@ -1,0 +1,19 @@
+{
+  "name": "firebase-harness",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo Error && exit 1",
+    "standard": "standard",
+    "standard-fix": "standard --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^4.10.1"
+  },
+  "devDependencies": {
+    "standard": "^11.0.0"
+  }
+}

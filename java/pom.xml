@@ -23,6 +23,7 @@
         <module>cglib</module>
         <module>dropwizard</module>
         <module>dropwizard-metrics</module>
+        <module>gcp</module>
         <module>groovy</module>
         <module>guava</module>
         <module>guice</module>
@@ -39,7 +40,7 @@
         <module>eureka</module>
         <module>eureka-server</module>
         <module>mongodb</module>
-        <module>narayana</module>
+        <!--<module>narayana</module>-->
         <module>neo4j</module>
         <module>netty</module>
         <module>neuroph</module>

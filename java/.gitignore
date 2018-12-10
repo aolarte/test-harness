@@ -12,5 +12,9 @@
 hs_err_pid*
 
 .idea
+.settings
 *.iml
 */target/*
+
+
+.factorypath
