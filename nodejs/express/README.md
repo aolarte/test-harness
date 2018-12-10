@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Runing
 
     nodejs app.js
@@ -15,3 +16,4 @@ Or
 ## Run image
 
     docker run -d -p 8080:8080 --name express-test express-test
+

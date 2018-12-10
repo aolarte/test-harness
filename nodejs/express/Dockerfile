@@ -18,5 +18,6 @@ COPY . .
 
 EXPOSE 8080
 
+
 #CMD [ "npm", "start" ]
 CMD ["nodejs", "app.js"]
