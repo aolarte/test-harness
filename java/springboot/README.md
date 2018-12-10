@@ -5,10 +5,16 @@ Simple SpringBoot app that can be containerized.
 
 # Containerization
 
-## Build image
+## Build image with Docker
+
+Uses `Dockerfile`.
 
     docker build -t="springboot-test" .
-    
+
+## Build image with Jib
+
+    mvn compile jib:build
+
 ## Run image
 
     docker run -d -p 8080:8080 --name springboot-test springboot-test
