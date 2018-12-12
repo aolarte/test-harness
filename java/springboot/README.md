@@ -15,7 +15,7 @@ Uses `Dockerfile`.
 
     mvn compile jib:build
 
-## Run image
+## Run image in Docker
 
     docker run -d -p 8080:8080 --name springboot-test springboot-test
     
@@ -24,3 +24,9 @@ Uses `Dockerfile`.
     docker tag 749896a4e2fe aolarte/springboot-test:latest
     docker login
     docker push aolarte/springboot-test
+
+## Run image in GKE
+
+    kubectl run boot --image=gcr.io/andresolarte-gke-ent/springboot
+
+    kubectl expose deployment boot --type=NodePort --port 8080
