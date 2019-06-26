@@ -1,0 +1,14 @@
+apiVersion: build.knative.dev/v1alpha1
+kind: Build
+metadata:
+  name: python-flask-test-build
+spec:
+  steps:
+  - name: git
+    image: gcr.io/cloud-builders/gcloud
+    args: ["source", "repos", "clone", "python", ".", "--project={{ .Values.project }}"]  
+  - name: build-and-push
+    image: "gcr.io/kaniko-project/executor:v0.6.0"
+    args:
+    - "--dockerfile=/workspace/Dockerfile"
+    - "--destination=gcr.io/{{ .Values.project }}/python-flask-test:latest"
