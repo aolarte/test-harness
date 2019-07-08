@@ -36,15 +36,20 @@ To check the logs of the build steps:
 
 To verify the output:
 
-    helm install --dry-run --debug --set image.project=`gcloud config list --format 'value(core.project)' 2>/dev/null` ./deploy-chart
+    helm install --dry-run --debug --set gateway=true,image.project=`gcloud config list --format 'value(core.project)' 2>/dev/null` ./deploy-chart
+
+To deploy with Istio Gateway enabled:
+
+    kubectl create ns python
+    kubectl label namespace python istio-injection=enabled
 
 To install:
 
-    helm install --set image.project=`gcloud config list --format 'value(core.project)' 2>/dev/null` ./deploy-chart
+    helm --namespace python install --set gateway=true,image.project=`gcloud config list --format 'value(core.project)' 2>/dev/null` ./deploy-chart
 
 To upgrade:
 
-    helm upgrade --set image.project=`gcloud config list --format 'value(core.project)' 2>/dev/null` [RELEASE] ./deploy-chart
+    helm upgrade --set gateway=true,image.project=`gcloud config list --format 'value(core.project)' 2>/dev/null` [RELEASE] ./deploy-chart
 
 To test the deployment:
 

@@ -4,11 +4,13 @@
 
 replicaCount: 1
 
+gateway: false
+
 image:
   repository: gcr.io  
   name: python-flask-test  
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   type: LoadBalancer
