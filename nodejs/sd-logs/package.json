@@ -1,0 +1,20 @@
+{
+  "name": "sd_logs_test",
+  "version": "1.0.0",
+  "description": "Stackdriver Logs Test Harness",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/logging": "^5.2.2"
+  },
+  "devDependencies": {
+    "standard": "^14.1.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "standard": "standard",
+    "standard-fix": "standard --fix"
+  },
+  "author": "Andres Olarte",
+  "license": "Apache-2.0"
+}
