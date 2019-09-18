@@ -8,6 +8,25 @@ Or
 
     node app.js 
 
+## Fudging with Trace Context
+
+It's possible (but hacky) to modify the trace context:
+
+
+    app.use((req, _, next) => {
+      if (req.body.traceContext) {
+        console.log('traceContext: ', req.body.traceContext)
+        const parts = req.body.traceContext.split('/')
+        const traceId = parts[0]
+        const parentSpanId = parts[1].split(';')[0]
+        const data = tracer.getCurrentRootSpan()
+        data.trace.traceId = traceId
+        data.span.parentSpanId = parentSpanId
+      }  
+      next();  
+    });
+
+
 
 ## Docker
 
