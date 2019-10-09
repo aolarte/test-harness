@@ -8,6 +8,9 @@ const argv = require('minimist')(process.argv.slice(2))
 console.log('Started with parameters:')
 console.dir(argv)
 
+console.log('Started with env:')
+console.dir(process.env)
+
 const app = express()
 
 const router = express.Router()
