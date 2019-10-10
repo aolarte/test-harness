@@ -22,12 +22,40 @@ function toArray (value) {
   return [value]
 }
 
+
+const data = new Map();
+
+function fetchOrCreate(path) {
+  if (data.has(path)) {
+    return data.get(path)
+  }
+  pathData = {}
+  data.set(path, pathData)
+  return pathData
+}
+
+function processRequest(pathData, req, res) {
+  if (pathData.code === 200) {
+    res.send(pathData.text)
+  } else if (pathData.code === 302) {
+    res.redirect(pathData.redirect)
+  }
+}
+
+function processGet(path, req, res) {
+  const pathData = data.get(path)
+  setTimeout(processRequest(pathData, req, res), (pathData.delay || 0))
+  
+}
+
 if ('text' in argv) {
   toArray(argv.text).forEach(value => {
     const parts = value.split(':')
-    router.get(parts[0], function (req, res) {
-      res.send(parts[1])
-    })
+
+    pathData = fetchOrCreate(parts[0])
+    pathData.code= 200
+    pathData.text=parts[1]
+    
     console.info(`Text route: ${value}`)
   })
 }
@@ -35,12 +63,24 @@ if ('text' in argv) {
 if ('redirect' in argv) {
   toArray(argv.redirect).forEach(value => {
     const parts = value.split(':')
-    router.get(parts[0], function (req, res) {
-      res.redirect(parts[1])
-    })
+
+    pathData = fetchOrCreate(parts[0])
+    pathData.code= 302
+    pathData.redirect=parts[1]   
+
     console.info(`Redirect route: ${value}`)
   })
 }
+
+
+data.forEach((value, key) => {
+  console.info(`Registering route: ${key}`)
+  router.get(key, function (req, res) {
+    processGet(key,req,res)
+  })
+})
+
+
 
 app.disable('x-powered-by')
 app.use(function (req, res, next) {
