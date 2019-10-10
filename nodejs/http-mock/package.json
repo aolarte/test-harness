@@ -4,6 +4,8 @@
   "description": "Express Web Test Harness",
   "main": "index.js",
   "dependencies": {
+    "@google-cloud/debug-agent": "^4.0.4",
+    "@google-cloud/trace-agent": "^4.2.1",
     "express": "^4.17.1",
     "minimist": "^1.2.0"
   },

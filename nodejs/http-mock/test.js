@@ -1,8 +1,6 @@
 /* eslint-env mocha */
 const { spawn } = require('child_process')
 const assert = require('assert')
-// const request = require('request')
-// const rp = require('request-promise');
 const fetch = require('node-fetch')
 
 function sleep (ms) {
@@ -26,6 +24,11 @@ async function startServer (port, args) {
   args.unshift('app.js')
   var npm = spawn('node', args, { env: { ...process.env, ...opts } })
   var ready = false
+
+  npm.stdout.on('data', (data) => {
+    console.log(`npm stdout: ${data}`)
+  })
+
   do {
     ready = await test(port)
   } while (!ready)
@@ -36,10 +39,16 @@ async function startServer (port, args) {
 describe('App', function () {
   var npm
   const port = 8081
+  const args = ['--text=/hello:hello',
+    '--redirect=/redirect:/new',
+  `--proxy=/proxy:http://localhost:${port}/hello`,
+  `--proxy=/invalidProxy:http://localhost:${port}/error`,
+  '--error=/error:server_down'
+  ]
 
   before(async function () {
     this.timeout(10000)
-    npm = await startServer(port, ['--text=/hello:hello', '--redirect=/redirect:/new'])
+    npm = await startServer(port, args)
   })
 
   describe('Basic tests', function () {
@@ -55,18 +64,35 @@ describe('App', function () {
       assert.strictEqual(response.status, 404)
     })
 
-    it('hit an redirect', async function () {
+    it('hit a redirect', async function () {
       const response = await fetch(`http://localhost:${port}/redirect`, { redirect: 'manual' })
       assert.strictEqual(response.status, 302)
       assert.strictEqual(response.headers.get('location'), `http://localhost:${port}/new`)
     })
+
+    it('hit a proxy', async function () {
+      const response = await fetch(`http://localhost:${port}/proxy`)
+      assert.strictEqual(response.ok, true)
+      const body = await response.text()
+      assert.strictEqual(body, 'OK => hello')
+    })
+
+    it('hit an invalid proxy', async function () {
+      const response = await fetch(`http://localhost:${port}/invalidProxy`)
+      assert.strictEqual(response.ok, true)
+      const body = await response.text()
+      assert.strictEqual(body, 'BAD => server_down')
+    })
+
+    it('hit a server error', async function () {
+      const response = await fetch(`http://localhost:${port}/error`)
+      assert.strictEqual(response.ok, false)
+      const body = await response.text()
+      assert.strictEqual(body, 'server_down')
+    })
   })
 
   after(function () {
-    // npm.stdout.on('data', (data) => {
-    //     console.log(`stdout: ${data}`)
-    // })
-
     npm.kill(9)
   })
 })

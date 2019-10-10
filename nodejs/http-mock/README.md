@@ -4,11 +4,20 @@ An easy to configure HTTP server to help mock responses.
 
 ## Runing
     
-    npm run start -- --redirect=/:/admin --text=/admin:hello_admin
+    npm run start -- --redirect=/:/admin --text=/admin:hello_admin --proxy=/google:http://www.google.com
+
+     npm run start -- --redirect=/:/admin --text=/admin:hello_admin --delay=/admin:1000 --proxy=/proxy:http://localhost:8080/admin
 
 Or
 
-    node app.js --redirect=/:/admin --text=/admin:hello_admin
+    node app.js --redirect=/:/admin --text=/admin:hello_admin --proxy=/google:http://www.google.com
+
+### Options
+
+* `--text=/hello:hello_world` Listen on `/hello/` and return a 200 with text `hello_world`
+* `--redirect=/:/admin` Listen on `/` and return a 302 redirect to `/admin`
+* `--proxy=/google:http://www.google.com` Listen on `/google` and display the raw HTML fetched from `http://www.google.com`, prefixed by `OK =>` or `BAD =>`
+* `--error=/fail:bad` Listen on `/fail` and return a 503 error with text `bad`
 
 
 ## Docker
