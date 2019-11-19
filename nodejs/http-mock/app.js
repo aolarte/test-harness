@@ -18,7 +18,16 @@ if (process.env.SD_DEBUG === 'true') {
 }
 
 const express = require('express')
+const promMid = require('express-prometheus-middleware')
 const fetch = require('node-fetch')
+
+const client = require('prom-client')
+const counter = new client.Counter({
+  name: 'cccc_counter',
+  help: 'My help'
+})
+counter.inc() // Inc with 1
+counter.inc(10) // Inc with 10
 
 const version = '0.0.1'
 const tag = process.env.TAG || 'No Tag'
@@ -59,8 +68,22 @@ function splitArg (arg) {
   return [path, value]
 }
 
+function shouldThrowError(pathData) {
+  if (  (pathData.errorRate || 0) > 0) {    
+    let random = Math.random()
+    
+    if (pathData.errorRate > (random * 100 ) ) {
+      return true
+    }
+    
+  } 
+  return false
+}
+
 function processRequest (pathData, req, res) {
-  if (pathData.proxy) {
+  if ( shouldThrowError(pathData) ) {
+    res.status(500).send('Server Error')
+  } else if (pathData.proxy) {
     // res.send('Proxy')
     const proxyResp = fetch(pathData.proxy)
     var ok = false
@@ -136,6 +159,16 @@ if ('delay' in argv) {
   })
 }
 
+if ('error-rate' in argv) {
+  toArray(argv['error-rate']).forEach(value => {
+    const parts = splitArg(value)
+    const pathData = fetchOrCreate(parts[0])
+    pathData.errorRate = parts[1]
+    console.info(`Add error rate for route: ${value}`)
+  })
+}
+
+
 data.forEach((value, key) => {
   console.info(`Registering route: ${key}`)
   router.get(key, function (req, res) {
@@ -148,6 +181,11 @@ app.use(function (req, res, next) {
   res.header('X-Mock-Server', `HTTP Mock; ${version} / ${tag}`)
   next()
 })
+app.use(promMid({
+  metricsPath: '/metrics',
+  collectDefaultMetrics: true,
+  requestDurationBuckets: [0.1, 0.5, 1, 1.5]
+}))
 app.use('/', router)
 app.listen(port, (err) => {
   if (err) {

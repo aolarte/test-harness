@@ -43,7 +43,11 @@ describe('App', function () {
     '--redirect=/redirect:/new',
   `--proxy=/proxy:http://localhost:${port}/hello`,
   `--proxy=/invalidProxy:http://localhost:${port}/error`,
-  '--error=/error:server_down'
+  '--error=/error:server_down',
+  '--text=/hello_good:hello_good',
+  '--text=/hello_bad:hello_bad',
+  '--error-rate=/hello_good:0',
+  '--error-rate=/hello_bad:100'
   ]
 
   before(async function () {
@@ -90,6 +94,21 @@ describe('App', function () {
       const body = await response.text()
       assert.strictEqual(body, 'server_down')
     })
+
+    it('hit a 100% error rate', async function () {
+      const response = await fetch(`http://localhost:${port}/hello_bad`)
+      assert.strictEqual(response.ok, false)
+      const body = await response.text()
+      assert.strictEqual(body, 'Server Error')
+    })
+
+    it('hit a 0% error rate', async function () {
+      const response = await fetch(`http://localhost:${port}/hello_good`)
+      assert.strictEqual(response.ok, true)
+      const body = await response.text()
+      assert.strictEqual(body, 'hello_good')
+    })
+
   })
 
   after(function () {
