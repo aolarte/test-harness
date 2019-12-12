@@ -109,6 +109,17 @@ describe('App', function () {
       assert.strictEqual(body, 'hello_good')
     })
 
+    it('patch a 100% error rate path to 0% error rate', async function () {
+      const patch = JSON.stringify({ errorRate: '0' })
+      const headers = { 'Content-Type': 'application/json' }
+      const url = `http://localhost:${port}/hello_bad`
+      const patchResponse = await fetch(url, { method: 'PATCH', body: patch, headers: headers })
+      assert.strictEqual(patchResponse.ok, true)
+      const getResponse = await fetch(url)
+      assert.strictEqual(getResponse.ok, true)
+      const body = await getResponse.text()
+      assert.strictEqual(body, 'hello_bad')
+    })
   })
 
   after(function () {

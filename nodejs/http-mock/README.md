@@ -2,6 +2,12 @@
 
 An easy to configure HTTP server to help mock responses.
 
+## Setup
+
+Install node modules:
+
+    npm install
+
 ## Runing
     
     npm run start -- --redirect=/:/admin --text=/admin:hello_admin --proxy=/google:http://www.google.com

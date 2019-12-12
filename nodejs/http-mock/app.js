@@ -18,13 +18,14 @@ if (process.env.SD_DEBUG === 'true') {
 }
 
 const express = require('express')
+const bodyParser = require('body-parser')
 const promMid = require('express-prometheus-middleware')
 const fetch = require('node-fetch')
 
 const client = require('prom-client')
 const counter = new client.Counter({
-  name: 'cccc_counter',
-  help: 'My help'
+  name: 'custom_counter',
+  help: 'Custom Counter Help text'
 })
 counter.inc() // Inc with 1
 counter.inc(10) // Inc with 10
@@ -68,20 +69,19 @@ function splitArg (arg) {
   return [path, value]
 }
 
-function shouldThrowError(pathData) {
-  if (  (pathData.errorRate || 0) > 0) {    
-    let random = Math.random()
-    
-    if (pathData.errorRate > (random * 100 ) ) {
+function shouldThrowError (pathData) {
+  if ((pathData.errorRate || 0) > 0) {
+    const random = Math.random()
+
+    if (pathData.errorRate > (random * 100)) {
       return true
     }
-    
-  } 
+  }
   return false
 }
 
 function processRequest (pathData, req, res) {
-  if ( shouldThrowError(pathData) ) {
+  if (shouldThrowError(pathData)) {
     res.status(500).send('Server Error')
   } else if (pathData.proxy) {
     // res.send('Proxy')
@@ -109,6 +109,20 @@ function processRequest (pathData, req, res) {
 function processGet (path, req, res) {
   const pathData = data.get(path)
   setTimeout(() => processRequest(pathData, req, res), (pathData.delay || 0))
+}
+
+function processPatch (path, req, res) {
+  if (data.has(path)) {
+    const pathData = data.get(path)
+    const updatedData = Object.assign(pathData, req.body)
+    if (req.accepts('json')) {
+      res.send(updatedData)
+    } else {
+      res.send('OK')
+    }
+  } else {
+    res.status(404)
+  }
 }
 
 if ('text' in argv) {
@@ -168,11 +182,14 @@ if ('error-rate' in argv) {
   })
 }
 
-
 data.forEach((value, key) => {
   console.info(`Registering route: ${key}`)
   router.get(key, function (req, res) {
     processGet(key, req, res)
+  })
+
+  router.patch(key, function (req, res) {
+    processPatch(key, req, res)
   })
 })
 
@@ -181,6 +198,7 @@ app.use(function (req, res, next) {
   res.header('X-Mock-Server', `HTTP Mock; ${version} / ${tag}`)
   next()
 })
+app.use(bodyParser.json())
 app.use(promMid({
   metricsPath: '/metrics',
   collectDefaultMetrics: true,
