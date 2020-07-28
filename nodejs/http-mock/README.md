@@ -61,3 +61,48 @@ For Code Qualiaty, `standard` is configured:
     docker tag 7260caa01010 aolarte/http-mock:0.0.1
     docker push aolarte/http-mock:0.0.1
 
+## Kubernetes
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mock-deployment
+  labels:
+    app: mock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mock
+  template:
+    metadata:
+      labels:
+        app: mock
+    spec:
+      containers:
+      - name: mock
+        image: aolarte/http-mock:0.0.2
+        ports:
+        - containerPort: 8080
+        command: ["nodejs"]
+        args: 
+        - "app.js"
+        - "--text=/:ok_mock"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mock
+spec:
+  selector:
+    app: mock
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+```
+
+### Shell into the pod
+
+    kubectl exec -it POD_NAME -- /bin/bash 
