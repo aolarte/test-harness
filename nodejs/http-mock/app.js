@@ -30,7 +30,7 @@ const counter = new client.Counter({
 counter.inc() // Inc with 1
 counter.inc(10) // Inc with 10
 
-const version = '0.0.1'
+const version = '0.0.2'
 const tag = process.env.TAG || 'No Tag'
 const port = process.env.PORT || 8080
 

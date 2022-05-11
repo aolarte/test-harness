@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-mock
+  labels:
+    app: http-mock
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  clusterIP: None
+  selector:
+    app: http-mock
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-mock
+  labels:
+    app: http-mock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: http-mock
+  template:
+    metadata:
+      labels:
+        app: http-mock
+    spec:
+      containers:
+      - name: http-mock
+        image: http-mock-image
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"

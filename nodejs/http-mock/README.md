@@ -106,3 +106,9 @@ spec:
 ### Shell into the pod
 
     kubectl exec -it POD_NAME -- /bin/bash 
+
+### Skaffold
+
+Ensure that `kubectl` is configured.
+
+    skaffold dev --default-repo gcr.io/<PROJECT_ID>
