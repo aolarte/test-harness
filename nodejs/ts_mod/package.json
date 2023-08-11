@@ -1,0 +1,19 @@
+{
+  "name": "ts_mod",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --module commonjs",
+    "prestart": "tsc --module commonjs",
+    "start": "node  build/index.js",
+    "start_ts_node": "node --loader ts-node/esm src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.1.6",
+    "ts-node": "^10.9.1"
+  }
+}
