@@ -19,10 +19,15 @@ provider "google-beta" {
 }
 
 # Project data
-# [START cloudrun_jobs_execute_jobs_on_schedule_parent_tag]
 data "google_project" "project" {
 }
 
+# Enable Cloud SQL API
+resource "google_project_service" "sqladmin_api" {
+  service            = "sqladmin.googleapis.com"
+  disable_on_destroy = false
+  project            = data.google_project.project.project_id
+}
 
 
 # Enable Cloud Run API
@@ -79,11 +84,24 @@ resource "google_cloud_run_v2_job" "default" {
     template {
       containers {
         image = var.image_id
+        env {
+          name = "DB_INSTANCE"
+          value = "${data.google_project.project.project_id}:us-central1:my-database-instance"
+        }
+        env {
+          name = "DB_PASSWORD"
+          value_source {
+            secret_key_ref {
+              secret = google_secret_manager_secret.db-password.secret_id
+              version = "1"
+            }
+          }
+        }
       }
     }
   }
 
-  depends_on = [resource.google_project_service.cloudrun_api]
+  depends_on = [resource.google_project_service.cloudrun_api, resource.google_secret_manager_secret_iam_member.member]
 }
 
 # Cloud Run Job IAM binding
@@ -96,12 +114,12 @@ resource "google_cloud_run_v2_job_iam_binding" "binding" {
   depends_on = [resource.google_cloud_run_v2_job.default]
 }
 
-#[START cloud_run_jobs_execute_jobs_on_schedule]
+
 resource "google_cloud_scheduler_job" "job" {
   provider         = google-beta
   name             = "schedule-job"
   description      = "test http job"
-  schedule         = "*/8 * * * *"
+  schedule         = "*/5 * * * *"
   attempt_deadline = "320s"
   region           = "us-central1"
   project          = data.google_project.project.project_id
@@ -121,5 +139,53 @@ resource "google_cloud_scheduler_job" "job" {
 
   depends_on = [resource.google_project_service.cloudscheduler_api, resource.google_cloud_run_v2_job.default, resource.google_cloud_run_v2_job_iam_binding.binding]
 }
-#[END cloud_run_jobs_execute_jobs_on_schedule]
-# [END cloudrun_jobs_execute_jobs_on_schedule_parent_tag]
+
+resource "google_sql_database_instance" "instance" {
+  name             = "my-database-instance"
+  region           = "us-central1"
+  database_version = "POSTGRES_14"
+  settings {
+    tier = "db-g1-small"
+  }
+
+  deletion_protection  = "false"
+  depends_on = [resource.google_project_service.sqladmin_api]
+}
+
+
+resource "google_sql_database" "database" {
+  name     = "test"
+  instance = google_sql_database_instance.instance.name
+}
+
+
+resource "random_password" "password" {
+  length           = 16
+  special          = false  
+}
+
+
+resource "google_sql_user" "user" {
+  name     = "test"
+  instance = google_sql_database_instance.instance.name
+  password = random_password.password.result
+}
+
+resource "google_secret_manager_secret" "db-password" {
+  secret_id = "db_password"
+  replication {
+    automatic = true
+  }
+}
+
+
+resource "google_secret_manager_secret_version" "db-password-version" {
+  secret = google_secret_manager_secret.db-password.id
+  secret_data = random_password.password.result
+}
+
+resource "google_secret_manager_secret_iam_member" "member" {
+  secret_id = google_secret_manager_secret.db-password.secret_id
+  role = "roles/secretmanager.secretAccessor"
+  member = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
+}
